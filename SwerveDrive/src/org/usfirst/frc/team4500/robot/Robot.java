@@ -38,10 +38,10 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		oi = new OI();
-		backRight = new WheelModule(RobotMap.brAngleMotor, RobotMap.brSpeedMotor, RobotMap.brEncoder);
-		backLeft = new WheelModule(RobotMap.blAngleMotor, RobotMap.blSpeedMotor, RobotMap.blEncoder);
-		frontRight = new WheelModule(RobotMap.frAngleMotor, RobotMap.frSpeedMotor, RobotMap.frEncoder);
-		frontLeft = new WheelModule(RobotMap.flAngleMotor, RobotMap.flSpeedMotor, RobotMap.flEncoder);
+		backRight = new WheelModule(RobotMap.brAngleMotor, RobotMap.brSpeedMotor);
+		backLeft = new WheelModule(RobotMap.blAngleMotor, RobotMap.blSpeedMotor);
+		frontRight = new WheelModule(RobotMap.frAngleMotor, RobotMap.frSpeedMotor);
+		frontLeft = new WheelModule(RobotMap.flAngleMotor, RobotMap.flSpeedMotor);
 		
 		drivetrain = new SwerveDrive(backRight, backLeft, frontRight, frontLeft);
 		

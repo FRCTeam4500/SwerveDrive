@@ -1,48 +1,53 @@
 package org.usfirst.frc.team4500.robot.subsystems;
 
-import org.usfirst.frc.team4500.robot.RobotMap;
+import org.usfirst.frc.team4500.robot.commands.Drive_Speed;
 
-import edu.wpi.first.wpilibj.AnalogInput;
-import edu.wpi.first.wpilibj.PIDController;
-import edu.wpi.first.wpilibj.Talon;
-import edu.wpi.first.wpilibj.command.Subsystem;
+import com.ctre.CANTalon;
+
+import edu.wpi.first.wpilibj.command.PIDSubsystem;
 
 /**
- *
+ * Subsystem containing the information for a individual module.
  */
-public class WheelModule extends Subsystem {
-
-	private Talon angleMotor;
-	private Talon speedMotor;
-	private PIDController pidController;
+public class WheelModule extends PIDSubsystem {
 	
-	public WheelModule(int angleMotor, int speedMotor, int encoder) {
-    	this.angleMotor = new Talon(angleMotor);
-    	this.speedMotor = new Talon(speedMotor);
-    	pidController = new PIDController(1, 0, 0, new AnalogInput(encoder), this.angleMotor);
-    	
-    	pidController.setOutputRange(-1, 1);
-    	pidController.setContinuous();
-    	pidController.enable();
+	private CANTalon angleMotor;
+	private CANTalon speedMotor;
+
+    public WheelModule(int anglePort, int speedPort) {
+    	super("WheelModuleType2", 1, 0, 0);
+    	angleMotor = new CANTalon(anglePort);
+    	speedMotor = new CANTalon(speedPort);
+    	getPIDController().setContinuous(true);
     }
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
+        setDefaultCommand(new Drive_Speed());
+    }
+
+    protected double returnPIDInput() {
+        // Return your input value for the PID loop
+        // e.g. a sensor, like a potentiometer:
+        // yourPot.getAverageVoltage() / kYourMaxVoltage;
+        return angleMotor.getPosition();
+    }
+
+    protected void usePIDOutput(double output) {
+        // Use output to drive your system, like a motor
+        // e.g. yourMotor.set(output);
+    	angleMotor.pidWrite(output);
     }
     
-    public void drive(double speed, double angle) {
+    public void drive(double speed) {
     	speedMotor.set(speed);
-    	
-    	double setpoint = angle * (RobotMap.MAX_VOLTS * 0.5) + (RobotMap.MAX_VOLTS * 0.5);
-    	if (setpoint < 0) {
-    		setpoint = RobotMap.MAX_VOLTS + setpoint;
+    }
+    
+    public int isFinished() {
+    	if(getSetpoint() - getPosition() < 0.1) {
+    		return 1;
+    	} else {
+    		return 0;
     	}
-    	if (setpoint > RobotMap.MAX_VOLTS) {
-    		setpoint = setpoint - RobotMap.MAX_VOLTS;
-    	}
-    	
-    	pidController.setSetpoint(setpoint);
     }
 }
-

@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class Drive extends Command {
+public class Drive_Speed extends Command {
 
-    public Drive() {
+    public Drive_Speed() {
         requires(Robot.drivetrain);
     }
 
@@ -19,7 +19,7 @@ public class Drive extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.drivetrain.drive(Robot.oi.getAxis1(), Robot.oi.getAxis0(), Robot.oi.getAxis4());
+    	Robot.drivetrain.calculateSpeeds(Robot.oi.getAxis1(), Robot.oi.getAxis0(), Robot.oi.getAxis4());
     }
 
     // Make this return true when this Command no longer needs to run execute()
