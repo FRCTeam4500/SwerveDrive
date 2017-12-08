@@ -15,21 +15,17 @@ public class WheelModule extends PIDSubsystem {
 	private CANTalon speedMotor;
 
     public WheelModule(int anglePort, int speedPort) {
-    	super("WheelModuleType2", 1, 0, 0);
+    	super("WheelModule", 1, 0, 0);
     	angleMotor = new CANTalon(anglePort);
     	speedMotor = new CANTalon(speedPort);
     	getPIDController().setContinuous(true);
     }
 
     public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
         setDefaultCommand(new Drive_Speed());
     }
 
     protected double returnPIDInput() {
-        // Return your input value for the PID loop
-        // e.g. a sensor, like a potentiometer:
-        // yourPot.getAverageVoltage() / kYourMaxVoltage;
         return angleMotor.getPosition();
     }
 

@@ -1,7 +1,6 @@
 package org.usfirst.frc.team4500.robot.subsystems;
 
-import org.usfirst.frc.team4500.robot.commands.Drive_Speed;
-import org.usfirst.frc.team4500.robot.commands.Drive_Angle;
+import org.usfirst.frc.team4500.robot.commands.Group_Drive;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -19,8 +18,6 @@ public class SwerveDrive extends Subsystem {
 	private WheelModule frontLeft;
 	
 	private WheelModule[] modules = {backRight, backLeft, frontRight, frontLeft};
-	private double[] speeds = {0, 0, 0, 0};
-    private double[] angles = {0, 0, 0, 0};
 	
 	public SwerveDrive(WheelModule backRight, WheelModule backLeft, WheelModule frontRight, WheelModule frontLeft) {
     	this.backRight = backRight;
@@ -30,7 +27,7 @@ public class SwerveDrive extends Subsystem {
     }
 
     public void initDefaultCommand() {
-        setDefaultCommand(new Drive_Angle());
+        setDefaultCommand(new Group_Drive());
     }
     
     public void calculateSpeeds(double x1, double y1, double x2) {
@@ -47,14 +44,10 @@ public class SwerveDrive extends Subsystem {
     	double frSpeed = Math.sqrt((b * b) + (c * c));
     	double flSpeed = Math.sqrt((b * b) + (c * c));
 	    
-    	speeds[0] = brSpeed;
-    	speeds[1] = blSpeed;
-    	speeds[2] = frSpeed;
-    	speeds[3] = flSpeed;
-	    for(int i = 0; i < modules.length; i++) {;
-	    	modules[i].drive(speeds[i]);
-	    }
-	    
+    	modules[0].drive(brSpeed);
+    	modules[1].drive(blSpeed);
+    	modules[2].drive(frSpeed);
+    	modules[3].drive(flSpeed);
     }
     
     public void calculateAngles(double x1, double y1, double x2) {
@@ -71,13 +64,10 @@ public class SwerveDrive extends Subsystem {
 	    double frAngle = Math.atan2 (b, d) / Math.PI;
 	    double flAngle = Math.atan2 (b, c) / Math.PI;
 	    
-	    angles[0] = brAngle;
-	    angles[1] = blAngle;
-	    angles[2] = frAngle;
-	    angles[3] = flAngle;
-	    for(int i = 0; i < modules.length; i++) {
-	    	modules[i].setSetpoint(angles[i]);
-	    }
+	    modules[0].setSetpoint(brAngle);
+	    modules[1].setSetpoint(blAngle);
+	    modules[2].setSetpoint(frAngle);
+	    modules[3].setSetpoint(flAngle);
     }
     
     public boolean getFinished() {
