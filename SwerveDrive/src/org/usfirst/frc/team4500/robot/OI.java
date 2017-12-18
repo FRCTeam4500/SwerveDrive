@@ -13,15 +13,15 @@ public class OI {
 		driveStick = new Joystick(0);
 	}
 	
-	public double getAxis1() {
-		return driveStick.getRawAxis(1);
+	public double getX() {
+		return driveStick.getX();
 	}
 	
-	public double getAxis0() {
-		return driveStick.getRawAxis(0);
+	public double getY() {
+		return driveStick.getY();
 	}
 	
-	public double getAxis4() {
-		return driveStick.getRawAxis(4);
+	public double getZ() {
+		return driveStick.getZ();
 	}
 }

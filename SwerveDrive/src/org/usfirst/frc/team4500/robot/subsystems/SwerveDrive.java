@@ -3,6 +3,7 @@ package org.usfirst.frc.team4500.robot.subsystems;
 import org.usfirst.frc.team4500.robot.commands.Group_Drive;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Subsystem containing all four modules that make up swerve drive. 
@@ -63,6 +64,11 @@ public class SwerveDrive extends Subsystem {
 	    double blAngle = Math.atan2 (a, c) / Math.PI;
 	    double frAngle = Math.atan2 (b, d) / Math.PI;
 	    double flAngle = Math.atan2 (b, c) / Math.PI;
+	    
+	    SmartDashboard.putNumber("brAngle", brAngle);
+	    SmartDashboard.putNumber("blAngle", blAngle);
+	    SmartDashboard.putNumber("frAngle", frAngle);
+	    SmartDashboard.putNumber("flAngle", flAngle);
 	    
 	    modules[0].setSetpoint(brAngle);
 	    modules[1].setSetpoint(blAngle);

@@ -19,7 +19,7 @@ public class Drive_Speed extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.drivetrain.calculateSpeeds(Robot.oi.getAxis1(), Robot.oi.getAxis0(), Robot.oi.getAxis4());
+    	Robot.drivetrain.calculateSpeeds(Robot.oi.getX(), Robot.oi.getY(), Robot.oi.getZ());
     }
 
     // Make this return true when this Command no longer needs to run execute()

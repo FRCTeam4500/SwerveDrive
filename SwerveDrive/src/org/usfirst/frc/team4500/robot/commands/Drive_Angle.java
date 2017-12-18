@@ -15,7 +15,7 @@ public class Drive_Angle extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.drivetrain.calculateAngles(Robot.oi.getAxis1(), Robot.oi.getAxis0(), Robot.oi.getAxis4());
+    	Robot.drivetrain.calculateAngles(Robot.oi.getX(), Robot.oi.getY(), Robot.oi.getZ());
     }
 
     // Called repeatedly when this Command is scheduled to run

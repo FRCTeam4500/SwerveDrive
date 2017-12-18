@@ -4,6 +4,7 @@ import org.usfirst.frc.team4500.robot.commands.Drive_Speed;
 
 import com.ctre.CANTalon;
 
+import edu.wpi.first.wpilibj.CANSpeedController;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 
 /**
