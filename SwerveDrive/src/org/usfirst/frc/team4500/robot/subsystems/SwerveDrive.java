@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4500.robot.subsystems;
 
+import org.usfirst.frc.team4500.robot.RobotMap;
 import org.usfirst.frc.team4500.robot.commands.Group_Drive;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -28,7 +29,7 @@ public class SwerveDrive extends Subsystem {
     }
 
     public void initDefaultCommand() {
-        setDefaultCommand(new Group_Drive());
+        //setDefaultCommand(new Group_Drive());
     }
     
     public void calculateSpeeds(double x1, double y1, double x2) {
@@ -64,6 +65,11 @@ public class SwerveDrive extends Subsystem {
 	    double blAngle = Math.atan2 (a, c) / Math.PI;
 	    double frAngle = Math.atan2 (b, d) / Math.PI;
 	    double flAngle = Math.atan2 (b, c) / Math.PI;
+	    
+	    brAngle *= RobotMap.countPerDeg;
+	    blAngle *= RobotMap.countPerDeg;
+	    frAngle *= RobotMap.countPerDeg;
+	    flAngle *= RobotMap.countPerDeg;
 	    
 	    SmartDashboard.putNumber("brAngle", brAngle);
 	    SmartDashboard.putNumber("blAngle", blAngle);
