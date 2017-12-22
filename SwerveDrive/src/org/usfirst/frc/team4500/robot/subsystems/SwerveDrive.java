@@ -70,16 +70,16 @@ public class SwerveDrive extends Subsystem {
 	    SmartDashboard.putNumber("frAngle", frAngle);
 	    SmartDashboard.putNumber("flAngle", flAngle);
 	    
-	    modules[0].setSetpoint(brAngle);
-	    modules[1].setSetpoint(blAngle);
-	    modules[2].setSetpoint(frAngle);
-	    modules[3].setSetpoint(flAngle);
+//	    modules[0].setSetpoint(brAngle);
+//	    modules[1].setSetpoint(blAngle);
+//	    modules[2].setSetpoint(frAngle);
+//	    modules[3].setSetpoint(flAngle);
     }
     
     public boolean getFinished() {
     	int finished = 0;
     	for(int i = 0; i < modules.length; i++) {
-    		finished += modules[i].isFinished();
+    		//finished += modules[i].isFinished();
     	}
     	if(finished == 4) {
     		return true;
