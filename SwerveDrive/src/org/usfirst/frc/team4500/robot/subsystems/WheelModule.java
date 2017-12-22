@@ -3,8 +3,8 @@ package org.usfirst.frc.team4500.robot.subsystems;
 import org.usfirst.frc.team4500.robot.commands.Drive_Speed;
 
 import com.ctre.CANTalon;
+import com.ctre.CANTalon.FeedbackDevice;
 
-import edu.wpi.first.wpilibj.CANSpeedController;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 
 /**
@@ -19,6 +19,9 @@ public class WheelModule extends PIDSubsystem {
     	super("WheelModule", 1, 0, 0);
     	angleMotor = new CANTalon(anglePort);
     	speedMotor = new CANTalon(speedPort);
+    	
+    	angleMotor.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Absolute);
+    	//speedMotor.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Absolute);
     	getPIDController().setContinuous(true);
     }
 
