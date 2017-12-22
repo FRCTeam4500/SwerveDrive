@@ -24,4 +24,6 @@ public class RobotMap {
 	public final static int flSpeedMotor = 2;
 	public final static int flAngleMotor = 6;
 	//public final static int flEncoder = 0;
+	
+	public final static double countPerDeg = 16.2539;
 }
