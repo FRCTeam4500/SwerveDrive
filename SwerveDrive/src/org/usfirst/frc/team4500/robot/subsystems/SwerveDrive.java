@@ -1,7 +1,7 @@
 package org.usfirst.frc.team4500.robot.subsystems;
 
 import org.usfirst.frc.team4500.robot.RobotMap;
-import org.usfirst.frc.team4500.robot.commands.Group_Drive;
+import org.usfirst.frc.team4500.robot.commands.Drive;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -11,8 +11,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class SwerveDrive extends Subsystem {
 
-	public final double L = 1;
-	public final double W = 1;
+	public final double L = 29.5;
+	public final double W = 29.5;
 	
 	private WheelModule backRight;
 	private WheelModule backLeft;
@@ -29,30 +29,56 @@ public class SwerveDrive extends Subsystem {
     }
 
     public void initDefaultCommand() {
-        //setDefaultCommand(new Group_Drive());
+        setDefaultCommand(new Drive());
     }
     
-    public void calculateSpeeds(double x1, double y1, double x2) {
+    public void calculateInfo(double x, double y, double z) {
     	double r = Math.sqrt((L * L) + (W * W));
-    	y1 *= -1;
+    	//y *= -1;
     	
-    	double a = x1 - x2 * (L / r);
-    	double b = x1 + x2 * (L / r);
-    	double c = y1 - x2 * (W / r);
-    	double d = y1 + x2 * (W / r);
+    	SmartDashboard.putNumber("x", x);
+ 	    SmartDashboard.putNumber("y", y);
+ 	    SmartDashboard.putNumber("z", z);
+ 	    
+    	double a = x - z * (L / r);
+    	double b = x + z * (L / r);
+    	double c = y - z * (W / r);
+    	double d = y + z * (W / r);
     	
-    	double brSpeed = Math.sqrt((a * a) + (d * d));
-    	double blSpeed = Math.sqrt((a * a) + (c * c));
+    	double brSpeed = Math.sqrt((a * a) + (c * c));
+    	double blSpeed = Math.sqrt((a * a) + (d * d));
     	double frSpeed = Math.sqrt((b * b) + (c * c));
-    	double flSpeed = Math.sqrt((b * b) + (c * c));
+    	double flSpeed = Math.sqrt((b * b) + (d * d));
+    	
+    	double brAngle = Math.atan2 (a, c) * 180/Math.PI;
+	    double blAngle = Math.atan2 (a, d) * 180/Math.PI;
+	    double frAngle = Math.atan2 (b, c) * 180/Math.PI;
+	    double flAngle = Math.atan2 (b, d) * 180/Math.PI;
 	    
-    	modules[0].drive(brSpeed);
-    	modules[1].drive(blSpeed);
-    	modules[2].drive(frSpeed);
-    	modules[3].drive(flSpeed);
+	    brAngle *= RobotMap.countPerDeg;
+	    blAngle *= RobotMap.countPerDeg;
+	    frAngle *= RobotMap.countPerDeg;
+	    flAngle *= RobotMap.countPerDeg;
+	    
+	    SmartDashboard.putNumber("brAngle", brAngle);
+	    SmartDashboard.putNumber("blAngle", blAngle);
+	    SmartDashboard.putNumber("frAngle", frAngle);
+	    SmartDashboard.putNumber("flAngle", flAngle);
+	    
+    	backRight.drive(brSpeed, brAngle);
+    	backLeft.drive(blSpeed, blAngle);
+    	frontRight.drive(frSpeed, frAngle);
+    	frontLeft.drive(flSpeed, flAngle);
     }
     
-    public void calculateAngles(double x1, double y1, double x2) {
+    public void zeroAngle() {
+    	backRight.drive(0, 0);
+    	backLeft.drive(0, 0);
+    	frontRight.drive(0, 0);
+    	frontLeft.drive(0, 0);
+    }
+    
+    /*public void calculateAngles(double x1, double y1, double x2) {
     	double r = Math.sqrt((L * L) + (W * W));
     	y1 *= -1;
     	
@@ -75,12 +101,7 @@ public class SwerveDrive extends Subsystem {
 	    SmartDashboard.putNumber("blAngle", blAngle);
 	    SmartDashboard.putNumber("frAngle", frAngle);
 	    SmartDashboard.putNumber("flAngle", flAngle);
-	    
-//	    modules[0].setSetpoint(brAngle);
-//	    modules[1].setSetpoint(blAngle);
-//	    modules[2].setSetpoint(frAngle);
-//	    modules[3].setSetpoint(flAngle);
-    }
+    }*/
     
     public boolean getFinished() {
     	int finished = 0;

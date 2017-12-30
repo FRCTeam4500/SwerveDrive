@@ -7,9 +7,10 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class Drive_Speed extends Command {
+public class Drive extends Command {
 
-    public Drive_Speed() {
+    public Drive() {
+        // Use requires() here to declare subsystem dependencies
         requires(Robot.drivetrain);
     }
 
@@ -19,7 +20,7 @@ public class Drive_Speed extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.drivetrain.calculateSpeeds(Robot.oi.getX(), Robot.oi.getY(), Robot.oi.getZ());
+    	Robot.drivetrain.calculateInfo(Robot.oi.getX(), Robot.oi.getY(), Robot.oi.getZ());
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -34,6 +35,5 @@ public class Drive_Speed extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	
     }
 }
