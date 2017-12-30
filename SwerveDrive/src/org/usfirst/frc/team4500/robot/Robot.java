@@ -1,6 +1,7 @@
 
 package org.usfirst.frc.team4500.robot;
 
+import org.usfirst.frc.team4500.robot.subsystems.PneumaticsCompressor;
 import org.usfirst.frc.team4500.robot.subsystems.SwerveDrive;
 import org.usfirst.frc.team4500.robot.subsystems.WheelModule;
 
@@ -19,6 +20,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class Robot extends IterativeRobot {
+	
+	public static PneumaticsCompressor compressor;
 
 	public static WheelModule backRight;
 	public static WheelModule backLeft;
@@ -44,6 +47,8 @@ public class Robot extends IterativeRobot {
 		frontLeft = new WheelModule(RobotMap.flAngleMotor, RobotMap.flSpeedMotor);
 		
 		drivetrain = new SwerveDrive(backRight, backLeft, frontRight, frontLeft);
+		
+		//compressor = new PneumaticsCompressor();
 		
 		//chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());

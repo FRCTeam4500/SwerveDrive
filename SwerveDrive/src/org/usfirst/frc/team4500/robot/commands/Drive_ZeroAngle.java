@@ -11,7 +11,7 @@ public class Drive_ZeroAngle extends Command {
 
     public Drive_ZeroAngle() {
         // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
+       requires(Robot.drivetrain);
     }
 
     // Called just before this Command runs the first time
