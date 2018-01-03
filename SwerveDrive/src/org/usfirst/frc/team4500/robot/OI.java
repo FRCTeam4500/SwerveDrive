@@ -24,15 +24,15 @@ public class OI {
 	}
 	
 	public double getX() {
-		return driveStick.getX() >= 0.05 ? driveStick.getX() : 0;
+		return driveStick.getX() >= 0.05 || driveStick.getX() <= -0.05 ? driveStick.getX() : 0;
 	}
 	
 	public double getY() {
-		return driveStick.getY() >= 0.05 ? driveStick.getY() : 0;
+		return driveStick.getY() >= 0.05 || driveStick.getY() <= -0.05 ? driveStick.getY() : 0;
 	}
 	
 	public double getZ() {
-		return driveStick.getZ() >= 0.05 ? driveStick.getZ() : 0;
+		return driveStick.getZ() >= 0.05 || driveStick.getZ() <= -0.05 ? driveStick.getZ() : 0;
 	}
 	
 }

@@ -40,13 +40,14 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		oi = new OI();
-		backRight = new WheelModule(RobotMap.brAngleMotor, RobotMap.brSpeedMotor);
-		backLeft = new WheelModule(RobotMap.blAngleMotor, RobotMap.blSpeedMotor);
-		frontRight = new WheelModule(RobotMap.frAngleMotor, RobotMap.frSpeedMotor);
-		frontLeft = new WheelModule(RobotMap.flAngleMotor, RobotMap.flSpeedMotor);
+		backRight = new WheelModule(RobotMap.brAngleMotor, RobotMap.brSpeedMotor, 0, 0, 0, false);
+		backLeft = new WheelModule(RobotMap.blAngleMotor, RobotMap.blSpeedMotor, 0, 0, 0, false);
+		frontRight = new WheelModule(RobotMap.frAngleMotor, RobotMap.frSpeedMotor, 1.2, 0.0072, 49.95, false);
+		frontLeft = new WheelModule(RobotMap.flAngleMotor, RobotMap.flSpeedMotor, 0, 0, 0, false);
 		
 		drivetrain = new SwerveDrive(backRight, backLeft, frontRight, frontLeft);
+		
+		oi = new OI();
 		
 		//compressor = new PneumaticsCompressor();
 		

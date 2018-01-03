@@ -34,7 +34,7 @@ public class SwerveDrive extends Subsystem {
     
     public void calculateInfo(double x, double y, double z) {
     	double r = Math.sqrt((L * L) + (W * W));
-    	//y *= -1;
+    	y *= -1;
     	
     	SmartDashboard.putNumber("x", x);
  	    SmartDashboard.putNumber("y", y);
@@ -65,17 +65,17 @@ public class SwerveDrive extends Subsystem {
 	    SmartDashboard.putNumber("frAngle", frAngle);
 	    SmartDashboard.putNumber("flAngle", flAngle);
 	    
-    	backRight.drive(brSpeed, brAngle);
-    	backLeft.drive(blSpeed, blAngle);
+    	//backRight.drive(brSpeed, brAngle);
+    	//backLeft.drive(blSpeed, blAngle);
     	frontRight.drive(frSpeed, frAngle);
-    	frontLeft.drive(flSpeed, flAngle);
+    	//frontLeft.drive(flSpeed, flAngle);
     }
     
     public void zeroAngle() {
-    	backRight.drive(0, 0);
-    	backLeft.drive(0, 0);
-    	frontRight.drive(0, 0);
-    	frontLeft.drive(0, 0);
+    	backRight.zero();
+    	backLeft.zero();
+    	frontRight.zero();
+    	frontLeft.zero();
     }
     
     /*public void calculateAngles(double x1, double y1, double x2) {
