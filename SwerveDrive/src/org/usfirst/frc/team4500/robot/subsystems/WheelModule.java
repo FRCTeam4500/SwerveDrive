@@ -19,8 +19,8 @@ public class WheelModule extends Subsystem {
 		angleMotor = new CANTalon(anglePort);
 		speedMotor = new CANTalon(speedPort);
 		
-		int absPos = angleMotor.getPulseWidthPosition();
-		angleMotor.setEncPosition(absPos);
+		angleMotor.setPulseWidthPosition(0);
+		angleMotor.setEncPosition(0);
 		angleMotor.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Absolute);
 		angleMotor.reverseSensor(false);
 		angleMotor.configEncoderCodesPerRev(5851);
@@ -69,7 +69,7 @@ public class WheelModule extends Subsystem {
 	}
 	
 	public void setSetpoint(double setpoint) {
-		angleMotor.set(setpoint);
+		angleMotor.set(setpoint /= 360);
 	}
 	
 	public void driveAngle(double angle) {

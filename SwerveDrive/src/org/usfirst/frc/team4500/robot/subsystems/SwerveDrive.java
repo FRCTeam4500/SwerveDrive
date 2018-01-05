@@ -60,6 +60,11 @@ public class SwerveDrive extends Subsystem {
 	    frAngle *= RobotMap.countPerDeg;
 	    flAngle *= RobotMap.countPerDeg;
 	    
+	    brAngle /= 360;
+	    blAngle /= 360;
+	    frAngle /= 360;
+	    flAngle /= 360;
+	    
 	    SmartDashboard.putNumber("brAngle", brAngle);
 	    SmartDashboard.putNumber("blAngle", blAngle);
 	    SmartDashboard.putNumber("frAngle", frAngle);

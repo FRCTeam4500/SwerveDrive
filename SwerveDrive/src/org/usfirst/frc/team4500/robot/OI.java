@@ -21,8 +21,8 @@ public class OI {
 	public OI() {
 		driveStick = new Joystick(0);
 		
-		zeroAngle = new JoystickButton(driveStick, 11);
-		zeroAngle.whenPressed(new Drive_ZeroAngle());
+		//zeroAngle = new JoystickButton(driveStick, 11);
+		//zeroAngle.whenPressed(new Drive_ZeroAngle());
 		
 		zero = new JoystickButton(driveStick, 7);
 		ninety = new JoystickButton(driveStick, 8);
