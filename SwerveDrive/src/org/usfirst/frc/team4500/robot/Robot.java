@@ -113,10 +113,14 @@ public class Robot extends IterativeRobot {
 		
 		DriverStation.Alliance color;
 		color = DriverStation.getInstance().getAlliance();
-		if(color == DriverStation.Alliance.Blue) {
-			SmartDashboard.putString("alliance", "blue");
-		} else {
-			SmartDashboard.putString("alliance", "red");
+
+		switch(color) {
+			case Blue:
+				SmartDashboard.putString("alliance", "blue");
+			case Red:
+				SmartDashboard.putString("alliance", "red");
+			case Invalid:
+				SmartDashboard.putString("alliance", "invalid");
 		}
 	}
 
