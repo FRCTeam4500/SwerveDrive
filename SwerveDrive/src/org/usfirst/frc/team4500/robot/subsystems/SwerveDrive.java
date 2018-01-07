@@ -11,8 +11,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class SwerveDrive extends Subsystem {
 
-	public final double L = 29.5;
-	public final double W = 29.5;
+	private final double L = 29.5;
+	private final double W = 29.5;
 	
 	private WheelModule backRight;
 	private WheelModule backLeft;
@@ -50,78 +50,26 @@ public class SwerveDrive extends Subsystem {
     	double frSpeed = Math.sqrt((b * b) + (c * c));
     	double flSpeed = Math.sqrt((b * b) + (d * d));
     	
-    	double brAngle = Math.atan2 (a, c) * 180/Math.PI;
-	    double blAngle = Math.atan2 (a, d) * 180/Math.PI;
-	    double frAngle = Math.atan2 (b, c) * 180/Math.PI;
-	    double flAngle = Math.atan2 (b, d) * 180/Math.PI;
-	    
-	    brAngle *= RobotMap.countPerDeg;
-	    blAngle *= RobotMap.countPerDeg;
-	    frAngle *= RobotMap.countPerDeg;
-	    flAngle *= RobotMap.countPerDeg;
-	    
-	    brAngle /= 360;
-	    blAngle /= 360;
-	    frAngle /= 360;
-	    flAngle /= 360;
+    	double brAngle = (Math.atan2(a, c) * 180/Math.PI) / 360;
+	    double blAngle = (Math.atan2(a, d) * 180/Math.PI) / 360;
+	    double frAngle = (Math.atan2(b, c) * 180/Math.PI) / 360;
+	    double flAngle = (Math.atan2(b, d) * 180/Math.PI) / 360;
 	    
 	    SmartDashboard.putNumber("brAngle", brAngle);
 	    SmartDashboard.putNumber("blAngle", blAngle);
 	    SmartDashboard.putNumber("frAngle", frAngle);
 	    SmartDashboard.putNumber("flAngle", flAngle);
 	    
-    	//backRight.drive(brSpeed, brAngle);
-    	//backLeft.drive(blSpeed, blAngle);
+    	backRight.drive(brSpeed, brAngle);
+    	backLeft.drive(blSpeed, blAngle);
     	frontRight.drive(frSpeed, frAngle);
-    	//frontLeft.drive(flSpeed, flAngle);
+    	frontLeft.drive(flSpeed, flAngle);
     }
     
-    public void zeroAngle() {
-    	backRight.zero();
-    	backLeft.zero();
-    	frontRight.zero();
-    	frontLeft.zero();
-    }
-    
-    /*public void calculateAngles(double x1, double y1, double x2) {
-    	double r = Math.sqrt((L * L) + (W * W));
-    	y1 *= -1;
-    	
-    	double a = x1 - x2 * (L / r);
-    	double b = x1 + x2 * (L / r);
-    	double c = y1 - x2 * (W / r);
-    	double d = y1 + x2 * (W / r);
-    	
-    	double brAngle = Math.atan2 (a, d) / Math.PI;
-	    double blAngle = Math.atan2 (a, c) / Math.PI;
-	    double frAngle = Math.atan2 (b, d) / Math.PI;
-	    double flAngle = Math.atan2 (b, c) / Math.PI;
-	    
-	    brAngle *= RobotMap.countPerDeg;
-	    blAngle *= RobotMap.countPerDeg;
-	    frAngle *= RobotMap.countPerDeg;
-	    flAngle *= RobotMap.countPerDeg;
-	    
-	    SmartDashboard.putNumber("brAngle", brAngle);
-	    SmartDashboard.putNumber("blAngle", blAngle);
-	    SmartDashboard.putNumber("frAngle", frAngle);
-	    SmartDashboard.putNumber("flAngle", flAngle);
-    }*/
-    
-    public boolean getFinished() {
-    	int finished = 0;
-    	for(int i = 0; i < modules.length; i++) {
-    		//finished += modules[i].isFinished();
+    public void shiftGear() {
+    	for(WheelModule m : modules) {
+    		m.shiftGear();
     	}
-    	if(finished == 4) {
-    		return true;
-    	} else {
-    		return false;
-    	}
-    }
-    
-    public WheelModule[] getModule() {
-    	return modules;
     }
 }
 

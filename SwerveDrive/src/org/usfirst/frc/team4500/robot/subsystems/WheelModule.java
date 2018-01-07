@@ -4,6 +4,7 @@ import com.ctre.CANTalon;
 import com.ctre.CANTalon.FeedbackDevice;
 import com.ctre.CANTalon.TalonControlMode;
 
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -14,10 +15,14 @@ public class WheelModule extends Subsystem {
 	
 	private CANTalon angleMotor;
 	private CANTalon speedMotor;
+	private Solenoid gearSwitch;
+	
+	private boolean gearMode = true;
 
-    public WheelModule(int anglePort, int speedPort, double P, double I, double D, boolean reverse) {
+    public WheelModule(int anglePort, int speedPort, int solPort, double P, double I, double D, boolean reverse) {
 		angleMotor = new CANTalon(anglePort);
 		speedMotor = new CANTalon(speedPort);
+		gearSwitch = new Solenoid(solPort);
 		
 		angleMotor.setPulseWidthPosition(0);
 		angleMotor.setEncPosition(0);
@@ -28,18 +33,7 @@ public class WheelModule extends Subsystem {
 		angleMotor.setProfile(0);
 		angleMotor.setPID(P, I, D);
 		angleMotor.changeControlMode(TalonControlMode.Position);
-		/*angleMotor.setForwardSoftLimit(5);
-		angleMotor.setReverseSoftLimit(-5);
-		angleMotor.enableForwardSoftLimit(true);
-		angleMotor.enableReverseSoftLimit(true);*/
 		
-//		angleMotor.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Absolute);
-//		angleMotor.reverseSensor(reverse); // false
-//		angleMotor.changeControlMode(TalonControlMode.Position);
-//		angleMotor.setPID(P, I, D);
-//		angleMotor.setAllowableClosedLoopErr(0);
-//		angleMotor.setPulseWidthPosition(0);
-//		angleMotor.configEncoderCodesPerRev(5851);
 //		angleMotor.setForwardSoftLimit(5);
 //		angleMotor.setReverseSoftLimit(-5);
 //		angleMotor.enableForwardSoftLimit(true);
@@ -53,26 +47,22 @@ public class WheelModule extends Subsystem {
 	
 	public void drive(double speed, double angle) {
 	    //speedMotor.set(speed);
-		//angleMotor.setSetpoint(1400);
+		angleMotor.set(angle*1.4285);
 	    
+		SmartDashboard.putBoolean("gear", gearMode);
 		SmartDashboard.putNumber("Debug angle", angle);
 	    SmartDashboard.putNumber("Debug position", angleMotor.getPosition());
 	    SmartDashboard.putNumber("Debug setpoint", angleMotor.getSetpoint());
 	    SmartDashboard.putNumber("Debug error", angleMotor.getError());
-	    SmartDashboard.putNumber("Debug encoder", angleMotor.getEncPosition());
-		
-		//SmartDashboard.putNumber(Integer.toString(angleMotor.getDeviceID()), angleMotor.getEncPosition());
+	    SmartDashboard.putNumber("Debug encoder", angleMotor.getEncPosition());	
 	}
 	
-	public void zero() {
-		angleMotor.setPulseWidthPosition(0);
+	public void shiftGear() {
+		gearSwitch.set(gearMode);
+		gearMode = !gearMode;
 	}
 	
 	public void setSetpoint(double setpoint) {
-		angleMotor.set(setpoint /= 360);
-	}
-	
-	public void driveAngle(double angle) {
-		
+		angleMotor.set(setpoint / 360);
 	}
 }

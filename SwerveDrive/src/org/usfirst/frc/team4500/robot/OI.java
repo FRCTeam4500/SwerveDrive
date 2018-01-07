@@ -1,7 +1,6 @@
 package org.usfirst.frc.team4500.robot;
 
 import org.usfirst.frc.team4500.robot.commands.Drive_SetSetpoint;
-import org.usfirst.frc.team4500.robot.commands.Drive_ZeroAngle;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -21,16 +20,13 @@ public class OI {
 	public OI() {
 		driveStick = new Joystick(0);
 		
-		//zeroAngle = new JoystickButton(driveStick, 11);
-		//zeroAngle.whenPressed(new Drive_ZeroAngle());
-		
 		zero = new JoystickButton(driveStick, 7);
 		ninety = new JoystickButton(driveStick, 8);
 		oneEighty = new JoystickButton(driveStick, 9);
 		
 		zero.whenPressed(new Drive_SetSetpoint(0));
-		ninety.whenPressed(new Drive_SetSetpoint(1400));
-		oneEighty.whenPressed(new Drive_SetSetpoint(2900));
+		ninety.whenPressed(new Drive_SetSetpoint(90));
+		oneEighty.whenPressed(new Drive_SetSetpoint(180));
 	}
 	
 	public double getX() {

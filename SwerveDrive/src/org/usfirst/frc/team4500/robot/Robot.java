@@ -5,6 +5,7 @@ import org.usfirst.frc.team4500.robot.subsystems.PneumaticsCompressor;
 import org.usfirst.frc.team4500.robot.subsystems.SwerveDrive;
 import org.usfirst.frc.team4500.robot.subsystems.WheelModule;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -40,11 +41,10 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		backRight = new WheelModule(RobotMap.brAngleMotor, RobotMap.brSpeedMotor, 0, 0, 0, false);
-		backLeft = new WheelModule(RobotMap.blAngleMotor, RobotMap.blSpeedMotor, 0, 0, 0, false);
-		frontRight = new WheelModule(RobotMap.frAngleMotor, RobotMap.frSpeedMotor, 2.4, 0.0072, 49.95, false);
-		frontLeft = new WheelModule(RobotMap.flAngleMotor, RobotMap.flSpeedMotor, 0, 0, 0, false);
-		
+		backRight = new WheelModule(RobotMap.BRANGLEMOTOR, RobotMap.BRSPEEDMOTOR, RobotMap.BRSOL, 2.4, 0.0072, 49.95, false);
+		backLeft = new WheelModule(RobotMap.BLANGLEMOTOR, RobotMap.BLSPEEDMOTOR, RobotMap.BLSOL, 2.4, 0.0072, 49.95, false);
+		frontRight = new WheelModule(RobotMap.FRANGLEMOTOR, RobotMap.FRSPEEDMOTOR, RobotMap.FRSOL, 2.4, 0.0072, 49.95, false);
+		frontLeft = new WheelModule(RobotMap.FLANGLEMOTOR, RobotMap.FLSPEEDMOTOR, RobotMap.FLSOL, 2.4, 0.0072, 49.95, false);
 		drivetrain = new SwerveDrive(backRight, backLeft, frontRight, frontLeft);
 		
 		oi = new OI();
@@ -108,12 +108,16 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopInit() {
-		// This makes sure that the autonomous stops running when
-		// teleop starts running. If you want the autonomous to
-		// continue until interrupted by another command, remove
-		// this line or comment it out.
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
+		
+		DriverStation.Alliance color;
+		color = DriverStation.getInstance().getAlliance();
+		if(color == DriverStation.Alliance.Blue) {
+			SmartDashboard.putString("alliance", "blue");
+		} else {
+			SmartDashboard.putString("alliance", "red");
+		}
 	}
 
 	/**

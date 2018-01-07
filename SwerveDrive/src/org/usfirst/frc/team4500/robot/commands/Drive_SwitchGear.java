@@ -7,11 +7,11 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class Drive_ZeroAngle extends Command {
+public class Drive_SwitchGear extends Command {
 
-    public Drive_ZeroAngle() {
+    public Drive_SwitchGear() {
         // Use requires() here to declare subsystem dependencies
-       requires(Robot.drivetrain);
+        requires(Robot.drivetrain);
     }
 
     // Called just before this Command runs the first time
@@ -20,7 +20,7 @@ public class Drive_ZeroAngle extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.drivetrain.zeroAngle();
+    	Robot.drivetrain.shiftGear();
     }
 
     // Make this return true when this Command no longer needs to run execute()
