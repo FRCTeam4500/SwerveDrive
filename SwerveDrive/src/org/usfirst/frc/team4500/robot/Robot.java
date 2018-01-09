@@ -41,15 +41,16 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		backRight = new WheelModule(RobotMap.BRANGLEMOTOR, RobotMap.BRSPEEDMOTOR, RobotMap.BRSOL, 2.4, 0.0072, 49.95, false);
-		backLeft = new WheelModule(RobotMap.BLANGLEMOTOR, RobotMap.BLSPEEDMOTOR, RobotMap.BLSOL, 2.4, 0.0072, 49.95, false);
-		frontRight = new WheelModule(RobotMap.FRANGLEMOTOR, RobotMap.FRSPEEDMOTOR, RobotMap.FRSOL, 2.4, 0.0072, 49.95, false);
-		frontLeft = new WheelModule(RobotMap.FLANGLEMOTOR, RobotMap.FLSPEEDMOTOR, RobotMap.FLSOL, 2.4, 0.0072, 49.95, false);
+		backRight = new WheelModule(RobotMap.BRANGLEMOTOR, RobotMap.BRSPEEDMOTOR);
+		backLeft = new WheelModule(RobotMap.BLANGLEMOTOR, RobotMap.BLSPEEDMOTOR);
+		frontRight = new WheelModule(RobotMap.FRANGLEMOTOR, RobotMap.FRSPEEDMOTOR);
+		frontLeft = new WheelModule(RobotMap.FLANGLEMOTOR, RobotMap.FLSPEEDMOTOR);
+		
 		drivetrain = new SwerveDrive(backRight, backLeft, frontRight, frontLeft);
 		
 		oi = new OI();
 		
-		//compressor = new PneumaticsCompressor();
+		compressor = new PneumaticsCompressor();
 		
 		//chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
