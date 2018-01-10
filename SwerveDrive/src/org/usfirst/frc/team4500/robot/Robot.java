@@ -41,10 +41,10 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		backRight = new WheelModule(RobotMap.BRANGLEMOTOR, RobotMap.BRSPEEDMOTOR);
-		backLeft = new WheelModule(RobotMap.BLANGLEMOTOR, RobotMap.BLSPEEDMOTOR);
-		frontRight = new WheelModule(RobotMap.FRANGLEMOTOR, RobotMap.FRSPEEDMOTOR);
-		frontLeft = new WheelModule(RobotMap.FLANGLEMOTOR, RobotMap.FLSPEEDMOTOR);
+		backRight = new WheelModule(RobotMap.BRANGLEMOTOR, RobotMap.BRSPEEDMOTOR, false, "br");
+		backLeft = new WheelModule(RobotMap.BLANGLEMOTOR, RobotMap.BLSPEEDMOTOR, false, "bl");
+		frontRight = new WheelModule(RobotMap.FRANGLEMOTOR, RobotMap.FRSPEEDMOTOR, false, "fr");
+		frontLeft = new WheelModule(RobotMap.FLANGLEMOTOR, RobotMap.FLSPEEDMOTOR, false, "fl");
 		
 		drivetrain = new SwerveDrive(backRight, backLeft, frontRight, frontLeft);
 		
@@ -87,12 +87,17 @@ public class Robot extends IterativeRobot {
 	public void autonomousInit() {
 		autonomousCommand = chooser.getSelected();
 
-		/*
-		 * String autoSelected = SmartDashboard.getString("Auto Selector",
-		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
-		 * = new MyAutoCommand(); break; case "Default Auto": default:
-		 * autonomousCommand = new ExampleCommand(); break; }
-		 */
+		
+		/*String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
+		switch(autoSelected) { 
+			case "My Auto": 
+				autonomousCommand = new MyAutoCommand(); 
+				break;
+			case "Default Auto": 
+				autonomousCommand = new ExampleCommand(); 
+				break; 
+		}*/
+		 
 
 		// schedule the autonomous command (example)
 		if (autonomousCommand != null)
@@ -118,10 +123,13 @@ public class Robot extends IterativeRobot {
 		switch(color) {
 			case Blue:
 				SmartDashboard.putString("alliance", "blue");
+				break;
 			case Red:
 				SmartDashboard.putString("alliance", "red");
+				break;
 			case Invalid:
 				SmartDashboard.putString("alliance", "invalid");
+				break;
 		}
 	}
 
@@ -138,6 +146,5 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void testPeriodic() {
-		LiveWindow.run();
 	}
 }

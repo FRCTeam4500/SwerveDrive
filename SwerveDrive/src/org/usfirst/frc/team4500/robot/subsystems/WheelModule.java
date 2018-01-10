@@ -14,14 +14,26 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- *
+ * Subsystem containing each individual module
+ * Grouped together through the SwerveDrive class
  */
 public class WheelModule extends Subsystem {
 	
 	private TalonSRX angleMotor;
 	private TalonSRX speedMotor;
+	
+	private String id;
 
-    public WheelModule(int anglePort, int speedPort) {
+	/**
+	 * Constructor for each individual module
+	 * @param anglePort port for the angle motor
+	 * @param speedPort port for the speed motor
+	 * @param inverted weather to invert the speed motor
+	 * @param id the identifier for the module
+	 */
+    public WheelModule(int anglePort, int speedPort, boolean inverted, String id) {
+    	this.id = id;
+    	
 		angleMotor = new TalonSRX(anglePort);
 		speedMotor = new TalonSRX(speedPort);
 		
@@ -32,6 +44,8 @@ public class WheelModule extends Subsystem {
 		angleMotor.config_kP(0, RobotMap.P, 0);
 		angleMotor.config_kI(0, RobotMap.I, 0);
 		angleMotor.config_kD(0, RobotMap.D, 0);
+		
+		speedMotor.setInverted(inverted);
     }
 
 	@Override
@@ -39,8 +53,15 @@ public class WheelModule extends Subsystem {
 		//setDefaultCommand(new Drive_Speed());
 	}
 	
+	/**
+	 * Sets the module to the desired speed and angle
+	 * @param speed for the drive motor
+	 * @param angle for the angle motor 
+	 */
 	public void drive(double speed, double angle) {
-	    //speedMotor.set(speed);
+	    speedMotor.set(ControlMode.PercentOutput, speed);
 		angleMotor.set(ControlMode.Position, angle * RobotMap.COUNTPERDEG);
+		
+		SmartDashboard.putNumber(id, speedMotor.getBusVoltage());
 	}
 }
