@@ -60,7 +60,7 @@ public class WheelModule extends Subsystem {
 	 */
 	public void drive(double speed, double angle) {
 	    speedMotor.set(ControlMode.PercentOutput, speed);
-		angleMotor.set(ControlMode.Position, angle * RobotMap.COUNTPERDEG);
+		//angleMotor.set(ControlMode.Position, angle * RobotMap.COUNTPERDEG);
 		
 		SmartDashboard.putNumber(id, speedMotor.getBusVoltage());
 	}

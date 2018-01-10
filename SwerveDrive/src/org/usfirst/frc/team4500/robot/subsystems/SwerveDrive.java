@@ -3,6 +3,7 @@ package org.usfirst.frc.team4500.robot.subsystems;
 import org.usfirst.frc.team4500.robot.RobotMap;
 import org.usfirst.frc.team4500.robot.commands.Drive;
 
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -21,6 +22,8 @@ public class SwerveDrive extends Subsystem {
 	private WheelModule frontRight;
 	private WheelModule frontLeft;
 	
+	private ADXRS450_Gyro gyro;
+	
 	private DoubleSolenoid gearSwitch;
 	private boolean gearMode = true;
 	
@@ -38,7 +41,8 @@ public class SwerveDrive extends Subsystem {
     	this.frontLeft = frontLeft;
     	
     	gearSwitch = new DoubleSolenoid(RobotMap.SOLPORTONE, RobotMap.SOLPORTTWO);
-    }
+    	gyro = new ADXRS450_Gyro();
+	}
 
     public void initDefaultCommand() {
         setDefaultCommand(new Drive());
@@ -92,9 +96,9 @@ public class SwerveDrive extends Subsystem {
 	    SmartDashboard.putNumber("flSpeed", flSpeed);
 	    
     	backRight.drive(brSpeed, brAngle);
-    	backLeft.drive(blSpeed, blAngle);
-    	frontRight.drive(frSpeed, frAngle);
-    	frontLeft.drive(flSpeed, flAngle);
+    	//backLeft.drive(blSpeed, blAngle);
+    	//frontRight.drive(frSpeed, frAngle);
+    	//frontLeft.drive(flSpeed, flAngle);
     }
     
     /**
@@ -109,5 +113,13 @@ public class SwerveDrive extends Subsystem {
 			gearMode = !gearMode;
 		}
 	}
+    
+    public void resetGyro() {
+    	gyro.reset();
+    }
+    
+    public double getGyro() {
+    	return gyro.getAngle();
+    }
 }
 
