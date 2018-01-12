@@ -24,8 +24,11 @@ public class RobotMap {
 	public final static int SOLPORTONE = 0;
 	public final static int SOLPORTTWO = 1;
 	
-	public final static double P = 1.2;
-	public final static double I = 0.0072;
+	// 1.2
+	// 0.0072
+	// 15
+	public final static double P = 2.4;
+	public final static double I = 0;
 	public final static double D = 15;
 	
 	public final static double COUNTPERDEG = 16.2539;

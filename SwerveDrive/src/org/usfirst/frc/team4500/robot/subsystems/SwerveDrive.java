@@ -22,6 +22,8 @@ public class SwerveDrive extends Subsystem {
 	private WheelModule frontRight;
 	private WheelModule frontLeft;
 	
+	private WheelModule[] modules = {backRight, backLeft, frontRight, frontLeft};
+	
 	private ADXRS450_Gyro gyro;
 	
 	private DoubleSolenoid gearSwitch;
@@ -96,9 +98,9 @@ public class SwerveDrive extends Subsystem {
 	    SmartDashboard.putNumber("flSpeed", flSpeed);
 	    
     	backRight.drive(brSpeed, brAngle);
-    	//backLeft.drive(blSpeed, blAngle);
-    	//frontRight.drive(frSpeed, frAngle);
-    	//frontLeft.drive(flSpeed, flAngle);
+    	backLeft.drive(blSpeed, blAngle);
+    	frontRight.drive(frSpeed, frAngle);
+    	frontLeft.drive(flSpeed, flAngle);
     }
     
     /**
@@ -121,5 +123,19 @@ public class SwerveDrive extends Subsystem {
     public double getGyro() {
     	return gyro.getAngle();
     }
+    
+//    public void setZero() {
+//    	for(WheelModule m : modules) {
+//    		m.setZero();
+//    	}
+//    }
+//    
+//    public void resetEncPosBool() {
+//    	for(WheelModule m : modules) {
+//    		if(m != null) {
+//    			m.setResetEncPos(true);
+//    		}
+//    	}
+//    }
 }
 

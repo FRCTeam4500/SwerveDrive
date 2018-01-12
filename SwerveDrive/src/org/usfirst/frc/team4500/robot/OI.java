@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4500.robot;
 
+import org.usfirst.frc.team4500.robot.commands.Drive_SetZero;
 import org.usfirst.frc.team4500.robot.commands.Drive_SwitchGear;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -15,12 +16,16 @@ public class OI {
 	Joystick driveStick;
 	
 	Button switchGear;
+	Button setZero;
 	
 	public OI() {
 		driveStick = new Joystick(0);
 		
 		switchGear = new JoystickButton(driveStick, 2);
 		switchGear.whenPressed(new Drive_SwitchGear());
+		
+		//setZero = new JoystickButton(driveStick, 11);
+		//setZero.whenPressed(new Drive_SetZero());
 	}
 	
 	public double getX() {

@@ -64,7 +64,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void disabledInit() {
-
+		//drivetrain.resetEncPosBool();
 	}
 
 	@Override
@@ -116,6 +116,8 @@ public class Robot extends IterativeRobot {
 	public void teleopInit() {
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
+		
+		//drivetrain.setZero();
 		
 		DriverStation.Alliance color;
 		color = DriverStation.getInstance().getAlliance();

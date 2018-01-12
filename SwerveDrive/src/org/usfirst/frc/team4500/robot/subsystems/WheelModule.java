@@ -36,9 +36,9 @@ public class WheelModule extends Subsystem {
     	
 		angleMotor = new TalonSRX(anglePort);
 		speedMotor = new TalonSRX(speedPort);
-		
-		angleMotor.setSelectedSensorPosition(0, 0, 0);
+
 		angleMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 0);
+		angleMotor.setSelectedSensorPosition(0, 0, 0);
 		angleMotor.setSensorPhase(false);	
 		angleMotor.configAllowableClosedloopError(0, 0, 0);
 		angleMotor.config_kP(0, RobotMap.P, 0);
@@ -60,8 +60,29 @@ public class WheelModule extends Subsystem {
 	 */
 	public void drive(double speed, double angle) {
 	    speedMotor.set(ControlMode.PercentOutput, speed);
-		//angleMotor.set(ControlMode.Position, angle * RobotMap.COUNTPERDEG);
+	    angle *= RobotMap.COUNTPERDEG;
+	    angleMotor.set(ControlMode.Position, angle);
+	    /*if(id.equals("fl")) {
+	    	angleMotor.set(ControlMode.Position, angle);
+	    } else if(id.equals("fr")) {
+	    	angleMotor.set(ControlMode.Position, angle - 1055);
+	    } else if(id.equals("bl")) {
+	    	angleMotor.set(ControlMode.Position, angle);
+	    } else if(id.equals("br")) {
+	    	angleMotor.set(ControlMode.Position, angle);
+	    }*/
+		
+		SmartDashboard.putNumber(id, angleMotor.getMotorOutputVoltage());
 		
 		SmartDashboard.putNumber(id, speedMotor.getBusVoltage());
+		SmartDashboard.putNumber(id, angleMotor.getSelectedSensorPosition(0));
+	}
+	
+	public void setZero() {
+		angleMotor.setSelectedSensorPosition(0, 0, 0);
+	}
+	
+	public void setResetEncPos(boolean bool) {
+		resetEncPos = bool;
 	}
 }
