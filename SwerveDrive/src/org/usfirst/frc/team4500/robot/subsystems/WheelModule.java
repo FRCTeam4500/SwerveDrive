@@ -26,8 +26,6 @@ public class WheelModule extends Subsystem {
 	private String id;
 	
 	private double lastAngle = 0;
-	private double lastQuadrant = 0;
-	private boolean shouldCvtAngle = true;
 
 	/**
 	 * Constructor for each individual module
@@ -86,20 +84,6 @@ public class WheelModule extends Subsystem {
 		lastAngle = angle;
 		angle *= RobotMap.COUNTPERDEG;
 		angleMotor.set(ControlMode.MotionMagic, angle);
-	    
-	    
-	    //WARNING: First run will not be true
-	    /*int quadrant = Util.getQuardrant(angle);
-	    SmartDashboard.putNumber("quad", quadrant);
-	    SmartDashboard.putNumber("lastQuad", lastQuadrant);
-	    SmartDashboard.putBoolean("cvtAngle", false);
-	    if(quadrant == 2 || quadrant == 3) {
-	    	if(lastQuadrant == 2 || lastQuadrant == 3) {
-		    		angle = Util.convertDeg(angle);
-		    		SmartDashboard.putBoolean("cvtAngle", true);
-	    	}
-	    }
-	    */
 	}
 	
 	public void setZero() {
