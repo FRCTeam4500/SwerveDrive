@@ -27,9 +27,18 @@ public class RobotMap {
 	// 1.2
 	// 0.0072
 	// 15
-	public final static double P = 2.4;
-	public final static double I = 0;
-	public final static double D = 15;
+	
+	
+	//8.956
+	//0.032
+	//89.562
+	//0.2997
+	public final static double P = 8.956;
+	public final static double I = 0.032;
+	public final static double D = 89.562;
+	public final static double F = 0.2997;
 	
 	public final static double COUNTPERDEG = 16.2539;
+	
+	public final static int TIMEOUT = 0;
 }

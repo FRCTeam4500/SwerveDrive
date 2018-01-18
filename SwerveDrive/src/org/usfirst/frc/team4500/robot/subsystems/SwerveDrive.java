@@ -2,6 +2,7 @@ package org.usfirst.frc.team4500.robot.subsystems;
 
 import org.usfirst.frc.team4500.robot.RobotMap;
 import org.usfirst.frc.team4500.robot.commands.Drive;
+import org.usfirst.frc.team4500.robot.util.Util;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -92,15 +93,10 @@ public class SwerveDrive extends Subsystem {
 	    double frAngle = (Math.atan2(b, c) * 180/Math.PI);
 	    double flAngle = (Math.atan2(b, d) * 180/Math.PI);
 	    
-	    SmartDashboard.putNumber("brSpeed", brSpeed);
-	    SmartDashboard.putNumber("blSpeed", blSpeed);
-	    SmartDashboard.putNumber("frSpeed", frSpeed);
-	    SmartDashboard.putNumber("flSpeed", flSpeed);
-	    
     	backRight.drive(brSpeed, brAngle);
-    	backLeft.drive(blSpeed, blAngle);
-    	frontRight.drive(frSpeed, frAngle);
-    	frontLeft.drive(flSpeed, flAngle);
+    	//backLeft.drive(blSpeed, blAngle);
+    	//frontRight.drive(frSpeed, frAngle);
+    	//frontLeft.drive(flSpeed, flAngle);
     }
     
     /**

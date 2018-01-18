@@ -2,6 +2,7 @@ package org.usfirst.frc.team4500.robot.subsystems;
 
 
 import org.usfirst.frc.team4500.robot.RobotMap;
+import org.usfirst.frc.team4500.robot.util.Util;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
@@ -23,6 +24,10 @@ public class WheelModule extends Subsystem {
 	private TalonSRX speedMotor;
 	
 	private String id;
+	
+	private double lastAngle = 0;
+	private double lastQuadrant = 0;
+	private boolean shouldCvtAngle = true;
 
 	/**
 	 * Constructor for each individual module
@@ -37,13 +42,21 @@ public class WheelModule extends Subsystem {
 		angleMotor = new TalonSRX(anglePort);
 		speedMotor = new TalonSRX(speedPort);
 
-		angleMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 0);
-		angleMotor.setSelectedSensorPosition(0, 0, 0);
+		int absolutePosition = angleMotor.getSelectedSensorPosition(RobotMap.TIMEOUT);
+		SmartDashboard.putNumber("absOne", absolutePosition);
+		angleMotor.setSelectedSensorPosition(absolutePosition, 0, RobotMap.TIMEOUT);
+		angleMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 		angleMotor.setSensorPhase(false);	
-		angleMotor.configAllowableClosedloopError(0, 0, 0);
-		angleMotor.config_kP(0, RobotMap.P, 0);
-		angleMotor.config_kI(0, RobotMap.I, 0);
-		angleMotor.config_kD(0, RobotMap.D, 0);
+		angleMotor.configPeakOutputForward(7/12.0, RobotMap.TIMEOUT);
+		angleMotor.configPeakOutputReverse(-7/12.0, RobotMap.TIMEOUT);
+		angleMotor.configAllowableClosedloopError(0, 0, RobotMap.TIMEOUT);
+		angleMotor.config_kP(0, RobotMap.P, RobotMap.TIMEOUT);
+		angleMotor.config_kI(0, RobotMap.I, RobotMap.TIMEOUT);
+		angleMotor.config_kD(0, RobotMap.D, RobotMap.TIMEOUT);
+		angleMotor.config_kF(0, RobotMap.F, RobotMap.TIMEOUT);
+		//40960
+		angleMotor.configMotionCruiseVelocity(20480*2, RobotMap.TIMEOUT);
+		angleMotor.configMotionAcceleration(20480*2, RobotMap.TIMEOUT);
 		
 		speedMotor.setInverted(inverted);
     }
@@ -59,30 +72,37 @@ public class WheelModule extends Subsystem {
 	 * @param angle for the angle motor 
 	 */
 	public void drive(double speed, double angle) {
-	    speedMotor.set(ControlMode.PercentOutput, speed);
-	    angle *= RobotMap.COUNTPERDEG;
-	    angleMotor.set(ControlMode.Position, angle);
-	    /*if(id.equals("fl")) {
-	    	angleMotor.set(ControlMode.Position, angle);
-	    } else if(id.equals("fr")) {
-	    	angleMotor.set(ControlMode.Position, angle - 1055);
-	    } else if(id.equals("bl")) {
-	    	angleMotor.set(ControlMode.Position, angle);
-	    } else if(id.equals("br")) {
-	    	angleMotor.set(ControlMode.Position, angle);
-	    }*/
-		
-		SmartDashboard.putNumber(id, angleMotor.getMotorOutputVoltage());
-		
-		SmartDashboard.putNumber(id, speedMotor.getBusVoltage());
-		SmartDashboard.putNumber(id, angleMotor.getSelectedSensorPosition(0));
+		SmartDashboard.putNumber("A: PulseWidthPos", angleMotor.getSensorCollection().getPulseWidthPosition() / 16.2539); 
+		SmartDashboard.putNumber("A: SelectedSensorPosition", angleMotor.getSelectedSensorPosition(0) / 16.2539); 
+		SmartDashboard.putNumber("A: lastAngle", lastAngle); 
+	    //speedMotor.set(ControlMode.PercentOutput, speed);
+	    //angleMotor.set(ControlMode.Position, angle);
+		double spOne = lastAngle - angle;
+		double spTwo = lastAngle - Util.convertDeg(angle);
+		double dist = lastAngle - spTwo;
+		if(Math.abs(dist) <= Math.abs(spOne)) {
+			angle = dist;
+		}
+		lastAngle = angle;
+		angle *= RobotMap.COUNTPERDEG;
+		angleMotor.set(ControlMode.MotionMagic, angle);
+	    
+	    
+	    //WARNING: First run will not be true
+	    /*int quadrant = Util.getQuardrant(angle);
+	    SmartDashboard.putNumber("quad", quadrant);
+	    SmartDashboard.putNumber("lastQuad", lastQuadrant);
+	    SmartDashboard.putBoolean("cvtAngle", false);
+	    if(quadrant == 2 || quadrant == 3) {
+	    	if(lastQuadrant == 2 || lastQuadrant == 3) {
+		    		angle = Util.convertDeg(angle);
+		    		SmartDashboard.putBoolean("cvtAngle", true);
+	    	}
+	    }
+	    */
 	}
 	
 	public void setZero() {
 		angleMotor.setSelectedSensorPosition(0, 0, 0);
-	}
-	
-	public void setResetEncPos(boolean bool) {
-		resetEncPos = bool;
 	}
 }
